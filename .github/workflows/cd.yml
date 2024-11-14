@@ -1,0 +1,23 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull Docker Image
+        run: docker pull dllromano/ci-example:latest
+
+      - name: Stop Docker container
+        run: docker stop ci-example || true
+
+      - name: Remove Docker container
+        run: docker rm ci-example || true
+
+      - name: Run new container
+        run: docker run --name ci-example -d -p 8080:8080 dllromano/ci-example:latest
