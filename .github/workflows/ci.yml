@@ -11,13 +11,14 @@ on:
       - main
       - develop
       - test/ci-cd
+    types: [opened, reopened]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    needs: build
+
     steps:
-      - name: Check code
+      - name: Check out code
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
